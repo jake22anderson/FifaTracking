@@ -13,3 +13,10 @@ class HomepageView(TemplateView):
         LeagueList = League.objects.all()
         context = {'LeagueList':LeagueList}
         return render(request, "homepage.html", context )
+
+class LeagueView(TemplateView):
+    def get(self,request, **kwargs):
+        league_id = kwargs['league_id']
+        league_list = League.objects.filter(pk = league_id)
+        league= league_list[0]
+        return render(request, "leaguedashboard.html", {'league':league})
