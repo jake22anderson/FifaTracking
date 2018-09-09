@@ -2,14 +2,23 @@
 <html lang="en">
   <head>
     <h1>{{league.league_name}} </h1>
-    <h1>{{name}}</h1>
-    <title>{{league.first_name}} </title>
     <!-- Bootstrap CSS -->
     {%load staticfiles%}
     <link rel="stylesheet" href="{% static 'css/leaguedashboard.css' %}" >
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   </head>
   <body>
+
+    {% if playerlist %}
+    <h3>Players<h3>
+    <ul>
+      {%for p in playerlist %}
+      <li>{{p.first_name}}</li>
+      {% endfor %}
+    </ul>
+    {% else %}
+      <p> No Players! Add some to your league!</p>
+    {% endif %}
   </body>
 
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->

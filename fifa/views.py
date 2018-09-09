@@ -19,4 +19,7 @@ class LeagueView(TemplateView):
         league_id = kwargs['league_id']
         league_list = League.objects.filter(pk = league_id)
         league= league_list[0]
-        return render(request, "leaguedashboard.html", {'league':league})
+        name = league.league_name
+        playerlist = Player.objects.filter(league = league_id)
+        print(playerlist)
+        return render(request, "leaguedashboard.html", {'league':league,'playerlist':playerlist})
