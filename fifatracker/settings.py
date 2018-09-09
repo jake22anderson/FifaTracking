@@ -25,13 +25,14 @@ SECRET_KEY = '$l-*&@$)tj&pmf(d9v!2hjk3i%*t!xu@3_r-8s_s30lr!3=x15'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['fifa-tracker-.herokuapp.com']
+ALLOWED_HOSTS = ['localhost', 'fifa-tracker-.herokuapp.com']
 
 
 # Application definition
 
 INSTALLED_APPS = [
     'fifa.apps.FifaConfig',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -78,8 +79,11 @@ WSGI_APPLICATION = 'fifatracker.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'ddnn4ehhkkpdrc',
+        'HOST': 'ec2-50-16-196-57.compute-1.amazonaws.com',
+        'USER': 'roayhdsddyunhk',
+        'PASSWORD': 'ab14359ae7b6ec398a4071221f0d0b2b7493fad6623e59125a14997a0fcad6a0',
     }
 }
 
@@ -108,7 +112,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'ETC'
 
 USE_I18N = True
 
