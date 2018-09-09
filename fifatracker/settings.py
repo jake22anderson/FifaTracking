@@ -25,7 +25,7 @@ SECRET_KEY = '$l-*&@$)tj&pmf(d9v!2hjk3i%*t!xu@3_r-8s_s30lr!3=x15'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = 'fifa-tracker-.herokuapp.com']
 
 
 # Application definition
