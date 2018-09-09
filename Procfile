@@ -1,1 +1,1 @@
-web: gunicorn SabiaWebsite.wsgi --log-file-
+web: gunicorn fifatracker.wsgi --log-file-
