@@ -1,32 +1,32 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <h1>FIFA Games Logging<h1>
-    <title> Fifa Tracking </title>
+    <h1>{{league.league_name}} </h1>
     <!-- Bootstrap CSS -->
     {%load staticfiles%}
-    <link rel="stylesheet" href="{% static 'leaguecards.css' %}" >
+    <link rel="stylesheet" href="{% static 'css/leaguedashboard.css' %}" >
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   </head>
   <body>
-    {% if LeagueList %}
+
+    {% if playerlist %}
+    <h3>Players<h3>
     <ul>
-      {%for league in LeagueList %}
-      <a href="league/{{league.id}}">
-          <img src="static/img/blue.jpg" />
+      {%for p in playerlist %}
+      <a = href="player/{{p.id}}">
+        <li>{{p.first_name}}</ls>
       </a>
-      <p>{{league.league_name}}</p>
       {% endfor %}
     </ul>
     {% else %}
-      <p> No Leagues! Try creating one. </p>
+      <p> No Players! Add some to your league!</p>
     {% endif %}
   </body>
 
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 
   {%load staticfiles%}
-  <script type="text/javascript" src="{% static "/js/league.js"%}"></script>
+  <script type="text/javascript" src="{% static "/js/leaguedashboard.js"%}"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
