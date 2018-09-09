@@ -1,8 +1,36 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <h1> hello! im within templates esketit<h1>
+    <h1><h1>
+    <title> Fifa Tracking </title>
+    <!-- Bootstrap CSS -->
+   {%load staticfiles%}
+   <link rel="stylesheet" href="{% static 'leaguecards.css' %}" >
   </head>
   <body>
+    {% if LeagueList %}
+    <ul>
+      {%for league in LeagueList %}
+      <div class="card">
+        <alt="Avatar" style="width:100%">
+        <div class="container">
+          <h4><b>{{league.league_name}}</b></h4>
+          <p>Architect & Engineer</p>
+        </div>
+      </div>
+      {% endfor %}
+    </ul>
+    {% else %}
+      <p> No Leagues! Try creating one. </p>
+    {% endif %}
   </body>
+
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+  {%load staticfiles%}
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
+
 </html>

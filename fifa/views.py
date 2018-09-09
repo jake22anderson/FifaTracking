@@ -10,4 +10,6 @@ from django.template import loader
 
 class HomepageView(TemplateView):
     def get(self,request,**kwargs):
-        return render(request, "homepage.html" )
+        LeagueList = League.objects.all()
+        context = {'LeagueList':LeagueList}
+        return render(request, "homepage.html", context )
