@@ -17,11 +17,13 @@ class AddPlayer(TemplateView):
 class AddMatch(TemplateView):
     def get(self,request, **kwargs):
         l_id= kwargs['league_id']
-        PlayerList = {}
-        for p in Player.objects.filter(league = request.session['league']):
-            PlayerList[p.id] = p.id
+        PlayerList={}
+        for p in Player.objects.filter(league = l_id):
+            PlayerList[0] = p.id
         playerlisttup = tuple(PlayerList.items())
-        match_form = MatchForm(request.POST, data =  {'choices':playerlisttup})
+        data =  {'choices':playerlisttup}
+        match_form = MatchForm(data)
+        print(data['choices'])
         return render(request,"addmatch.html", {"form":match_form})
 class HomepageView(TemplateView):
     def get(self,request,**kwargs):
@@ -73,17 +75,12 @@ def addPlayer(request, **kwargs):
 
 def addMatch(request, **kwargs):
     if request.method == 'POST':
-        l_id= kwargs['league_id']
-        PlayerList = {}
-        for p in Player.objects.filter(league = request.session['league']):
-            PlayerList[p.id] = p.id
-        playerlisttup = tuple(PlayerList.items())
-        form = MatchForm(request.POST)
-        if form.is_valid():
-            print("WELL HELL FUCKING O")
-        else:
-            form.add()
-    league_id = kwargs['league_id']
+        league_id = kwargs['league_id']
+        player1 = request.POST.get('player1')
+        player2 = request.POST.get('player2')
+        p1score = request.POST.get('p1score')
+        p2score = request.POST.get('p2score')
+
     return HttpResponseRedirect('/league/'+str(league_id)+'/')
 
 def getPlayerListTup():
