@@ -12,5 +12,7 @@ urlpatterns = [
     path('league/<int:league_id>/player/<int:player_id>/', views.PlayerView.as_view(), name = 'player'),
     path('league/<int:league_id>/addplayer/', views.AddPlayer.as_view()),
     path('league/<int:league_id>/addplayer/submit/', views.addPlayer),
+    path('league/<int:league_id>/addmatch/', views.AddMatch.as_view()),
+    path('league/<int:league_id>/addmatch/submit/', views.addMatch),
 
 ]+static(settings.STATIC_URL, document_root = settings.STATIC_ROOT)

@@ -6,12 +6,23 @@ from django.http import HttpResponseRedirect
 from .models import *
 from django.template import loader
 from .forms import *
+from django.views.generic.edit import FormView
 
 
 class AddPlayer(TemplateView):
     def get(self,request,**kwargs):
         player_form = PlayerForm()
         return render(request,"addplayer.html", {"form":player_form})
+
+class AddMatch(TemplateView):
+    def get(self,request, **kwargs):
+        l_id= kwargs['league_id']
+        PlayerList = {}
+        for p in Player.objects.filter(league = request.session['league']):
+            PlayerList[p.id] = p.id
+        playerlisttup = tuple(PlayerList.items())
+        match_form = MatchForm(request.POST, data =  {'choices':playerlisttup})
+        return render(request,"addmatch.html", {"form":match_form})
 class HomepageView(TemplateView):
     def get(self,request,**kwargs):
         LeagueList = League.objects.all()
@@ -25,14 +36,25 @@ class LeagueView(TemplateView):
         league= league_list[0]
         name = league.league_name
         playerlist = Player.objects.filter(league = league_id)
-        print(playerlist)
-        return render(request, "leaguedashboard.html", {'league':league,'playerlist':playerlist})
+        matchlist = Match.objects.filter(league = league_id)
+        print(matchlist)
+        return render(request, "leaguedashboard.html", {'league':league,'playerlist':playerlist, 'matchlist':matchlist})
+
+
+
 class PlayerView(TemplateView):
     def get(self,request,**kwargs):
         player_id = kwargs['player_id']
         player_set = Player.objects.filter(pk = player_id)
         player = player_set[0]
         return render(request, "playerdashboard.html", {'player': player})
+class PlayerList(FormView):
+    def get():
+        PlayerList = {}
+        for p in Player.objects.filter(league = request.session['league']):
+            PlayerList[p.id] = p.id
+        playerlisttup = tuple(PlayerList.items())
+        return playerlisttup
 
 def addPlayer(request, **kwargs):
     if request.method == 'POST':
@@ -48,3 +70,22 @@ def addPlayer(request, **kwargs):
 
     league_id = kwargs['league_id']
     return HttpResponseRedirect('/league/'+str(league_id)+'/')
+
+def addMatch(request, **kwargs):
+    if request.method == 'POST':
+        l_id= kwargs['league_id']
+        PlayerList = {}
+        for p in Player.objects.filter(league = request.session['league']):
+            PlayerList[p.id] = p.id
+        playerlisttup = tuple(PlayerList.items())
+        form = MatchForm(request.POST)
+        if form.is_valid():
+            print("WELL HELL FUCKING O")
+        else:
+            form.add()
+    league_id = kwargs['league_id']
+    return HttpResponseRedirect('/league/'+str(league_id)+'/')
+
+def getPlayerListTup():
+
+    return playerlisttup
