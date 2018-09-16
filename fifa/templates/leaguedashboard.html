@@ -74,23 +74,23 @@
         </div>
         <!-- MATCH HISTORY -->
         <div class="col-6">
-          {% if playerlist %}
+          {% if matchlist %}
           <table class="table table-striped bg-light">
             <thead>
               <tr>
                 <th scope="col">Games</th>
-                <th scope="col" colspan ="2">Home</th>
-                <th scope="col" colspan="2"> Away </th>
+                <th scope="col" colspan = "3">Home</th>
+                <th scope="col" colspan = "1"> Away </th>
               </tr>
             </thead>
             <tbody>
-            {%for m in playerlist %}
+            {%for m in matchlist %}
             <tr>
               <th scope="row">{{forloop.counter}}</th>
-              <td>P1</td>
-              <td>Score 1</td>
-              <td>Score 2</td>
-              <td>P2<td>
+              <td>{{m.player1.first_name}}</td>
+              <td>{{m.p1score}}</td>
+              <td>{{m.p2score}}</td>
+              <td>{{m.player2.first_name}}<td>
             </tr>
             {% endfor %}
 

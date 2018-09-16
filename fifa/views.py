@@ -17,13 +17,8 @@ class AddPlayer(TemplateView):
 class AddMatch(TemplateView):
     def get(self,request, **kwargs):
         l_id= kwargs['league_id']
-        PlayerList={}
-        for p in Player.objects.filter(league = l_id):
-            PlayerList[0] = p.id
-        playerlisttup = tuple(PlayerList.items())
-        data =  {'choices':playerlisttup}
+        data =  {'choices':getPlayerListTup(l_id)}
         match_form = MatchForm(data)
-        print(data['choices'])
         return render(request,"addmatch.html", {"form":match_form})
 class HomepageView(TemplateView):
     def get(self,request,**kwargs):
@@ -37,8 +32,8 @@ class LeagueView(TemplateView):
         league_list = League.objects.filter(pk = league_id)
         league= league_list[0]
         name = league.league_name
-        playerlist = Player.objects.filter(league = league_id)
-        matchlist = Match.objects.filter(league = league_id)
+        playerlist = Player.objects.filter(league = league)
+        matchlist = Match.objects.filter(league = league)
         print(matchlist)
         return render(request, "leaguedashboard.html", {'league':league,'playerlist':playerlist, 'matchlist':matchlist})
 
@@ -76,13 +71,26 @@ def addPlayer(request, **kwargs):
 def addMatch(request, **kwargs):
     if request.method == 'POST':
         league_id = kwargs['league_id']
+        playerlist = getPlayerListTup(league_id)
         player1 = request.POST.get('player1')
         player2 = request.POST.get('player2')
         p1score = request.POST.get('p1score')
         p2score = request.POST.get('p2score')
+        p1 = Player.objects.filter(pk = player1)[0]
+        p2 = Player.objects.filter(pk = player2)[0]
+        league = League.objects.filter(pk = league_id)[0]
+        match_obj = Match(player1 = p1, player2 = p2, p1score = int(p1score), p2score =int(p2score), league = league)
+        match_obj.save()
 
     return HttpResponseRedirect('/league/'+str(league_id)+'/')
 
-def getPlayerListTup():
-
+def getPlayerListTup(league_id):
+    PlayerList={}
+    for p in Player.objects.filter(league = league_id):
+        PlayerList[p.id] = ("%s %s" %(p.first_name,p.last_name))
+    playerlisttup = tuple(PlayerList.items())
     return playerlisttup
+
+def updateRecord(request, **kwargs):
+    league_id = kwargs['league_id']
+    matchlist = Match.objects.filter(league = League.objects.filter(pk = league_id)[0])
