@@ -1,3 +1,9 @@
+
+Link to live site: https://fifa-tracker-.herokuapp.com/
+
+
+INSTRUCTIONS ON RUNNING THE PROJECT LOCALLY
+
 fork the repository over from ShivamPatel17/FifaTracking
 
 #make sure python and pip are installed
