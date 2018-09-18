@@ -60,7 +60,9 @@ def addPlayer(request, **kwargs):
             fn = form.cleaned_data['first_name']
             ln = form.cleaned_data['last_name']
             league= League.objects.filter(pk = kwargs['league_id'])
-            player = Player(first_name = fn, last_name = ln, league = league[0])
+            record = Record(wins = 0, losses = 0)
+            record.save()
+            player = Player(first_name = fn, last_name = ln, league = league[0], record = record)
             player.save()
         else:
             print("not valid form")
