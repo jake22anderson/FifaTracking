@@ -34,7 +34,7 @@ class LeagueView(TemplateView):
         name = league.league_name
         playerlist = Player.objects.filter(league = league)
         matchlist = Match.objects.filter(league = league)
-        print(matchlist)
+        updateAllRecords(league_id)
         return render(request, "leaguedashboard.html", {'league':league,'playerlist':playerlist, 'matchlist':matchlist})
 
 
@@ -91,6 +91,29 @@ def getPlayerListTup(league_id):
     playerlisttup = tuple(PlayerList.items())
     return playerlisttup
 
-def updateRecord(request, **kwargs):
-    league_id = kwargs['league_id']
+def updateAllRecords(league_id):
+    playerlist = Player.objects.filter(league = league_id)
+    for p in playerlist:
+        p.record.wins = 0
+        p.record.losses = 0
+        p.record.save()
     matchlist = Match.objects.filter(league = League.objects.filter(pk = league_id)[0])
+    for m in matchlist:
+        record1 = m.player1.record
+        record2 = m.player2.record
+        wins1 = record1.wins
+        losses1 = record1.losses
+        wins2 = record2.wins
+        losses2 = record2.losses
+        if m.p1score>m.p2score:
+            wins1 = wins1 +1
+            losses2 = losses2 +1
+            record1.wins = wins1
+            record2.losses = losses2
+        elif m.p2score>m.p1score:
+            wins2 = wins2+1
+            losses1 = losses1+1
+            record1.losses = losses1
+            record2.wins = wins2
+        record1.save()
+        record2.save()

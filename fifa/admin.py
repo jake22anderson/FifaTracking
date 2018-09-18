@@ -6,3 +6,4 @@ from .models import *
 admin.site.register(Player)
 admin.site.register(League)
 admin.site.register(Match)
+admin.site.register(Record)

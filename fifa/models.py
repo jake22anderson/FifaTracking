@@ -15,7 +15,6 @@ class Match(models.Model):
     player2 = models.ForeignKey('Player', on_delete = models.CASCADE, related_name = "player1" )
     p1score = models.IntegerField()
     p2score = models.IntegerField()
-    record = models.ForeignKey("Record", on_delete = models.CASCADE, null = True)
     league =  models.ForeignKey('League', on_delete = models.CASCADE)
     def __str__(self):
         return self.league.league_name
@@ -23,10 +22,13 @@ class Match(models.Model):
 class Player(models.Model):
     first_name = models.CharField(max_length = 100)
     last_name  = models.CharField(max_length = 100)
-    league = models.ForeignKey('League', on_delete = models.CASCADE)
+    league =  models.ForeignKey('League', on_delete = models.CASCADE, default = '0')
+    record = models.ForeignKey("Record", on_delete = models.CASCADE, default = '0')
     def __str__(self):
-        return ("%s %s" %(self.first_name,self.league.league_name))
+        return ('%s %s' %(self.first_name, self.league.league_name))
 
 class Record(models.Model):
     wins = models.IntegerField()
     losses = models.IntegerField()
+    def __str__(self):
+        return ("%s - %s" %(self.wins,self.losses))
