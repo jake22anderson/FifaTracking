@@ -14,3 +14,9 @@
 .container {
     padding: 2px 16px;
 }
+
+#leaguecard{
+  width:25%;
+  height:25%;
+  border-radius: 5px;
+}

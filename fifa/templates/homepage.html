@@ -13,7 +13,7 @@
     <ul>
       {%for league in LeagueList %}
       <a href="league/{{league.id}}">
-          <img src="static/img/blue.jpg" />
+          <img id = "leaguecard" src="static/img/blue.jpg" />
       </a>
       <p>{{league.league_name}}</p>
       {% endfor %}
