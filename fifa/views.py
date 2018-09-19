@@ -34,7 +34,6 @@ class LeagueView(TemplateView):
         name = league.league_name
         playerlist = Player.objects.filter(league = league)
         matchlist = Match.objects.filter(league = league)
-        updateAllRecords(league_id)
         return render(request, "leaguedashboard.html", {'league':league,'playerlist':playerlist, 'matchlist':matchlist})
 
 
@@ -83,6 +82,7 @@ def addMatch(request, **kwargs):
         league = League.objects.filter(pk = league_id)[0]
         match_obj = Match(player1 = p1, player2 = p2, p1score = int(p1score), p2score =int(p2score), league = league)
         match_obj.save()
+        updateSingleRecord(match_obj)
 
     return HttpResponseRedirect('/league/'+str(league_id)+'/')
 
@@ -119,3 +119,22 @@ def updateAllRecords(league_id):
             record2.wins = wins2
         record1.save()
         record2.save()
+def updateSingleRecord(match):
+    record1 = match.player1.record
+    record2 = match.player2.record
+    wins1 = record1.wins
+    losses1 = record1.losses
+    wins2 = record2.wins
+    losses2 = record2.losses
+    if match.p1score>match.p2score:
+        wins1 = wins1 +1
+        losses2 = losses2 +1
+        record1.wins = wins1
+        record2.losses = losses2
+    elif match.p2score>match.p1score:
+        wins2 = wins2+1
+        losses1 = losses1+1
+        record1.losses = losses1
+        record2.wins = wins2
+    record1.save()
+    record2.save()

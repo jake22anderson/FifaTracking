@@ -1,0 +1,35 @@
+{% if playerlist %}
+<section>
+  <div class="tbl-header">
+    <table cellpadding="0" cellspacing="0" border="0">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">First</th>
+          <th scope="col">Last</th>
+          <th scope="col">Record</th>
+        </tr>
+        </tr>
+      </thead>
+    </table>
+  </div>
+  <div class="tbl-content">
+    <table cellpadding="0" cellspacing="0" border="0">
+      <tbody>
+        {%for p in playerlist %}
+        <tr>
+          <th scope="row">
+            <a = href="player/{{p.id}}">
+              {{forloop.counter}}
+            </a>
+          </th>
+          <td>{{p.first_name}}</td>
+          <td>{{p.last_name}}</td>
+          <td>{{p.record}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endif %}
