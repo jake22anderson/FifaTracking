@@ -24,6 +24,7 @@ class Player(models.Model):
     last_name  = models.CharField(max_length = 100)
     league =  models.ForeignKey('League', on_delete = models.CASCADE, default = '0')
     record = models.ForeignKey("Record", on_delete = models.CASCADE, default = '0')
+    score = models.IntegerField(default = '0')
     def __str__(self):
         return ('%s %s' %(self.first_name, self.league.league_name))
 

@@ -34,7 +34,9 @@ class LeagueView(TemplateView):
         name = league.league_name
         playerlist = Player.objects.filter(league = league)
         matchlist = Match.objects.filter(league = league)
-        return render(request, "leaguedashboard.html", {'league':league,'playerlist':playerlist, 'matchlist':matchlist})
+        updatePoints(playerlist)
+        orderedPlayers = sorted(playerlist, key = scoreFromRecord)
+        return render(request, "leaguedashboard.html", {'league':league,'playerlist':orderedPlayers, 'matchlist':matchlist})
 
 
 
@@ -92,6 +94,14 @@ def getPlayerListTup(league_id):
         PlayerList[p.id] = ("%s %s" %(p.first_name,p.last_name))
     playerlisttup = tuple(PlayerList.items())
     return playerlisttup
+
+def scoreFromRecord(player):
+    return -1*player.score
+
+def updatePoints(playerlist):
+    for player in playerlist:
+        score = (3*int(player.record.wins))-(int(player.record.losses))
+        player.score = int(score)
 
 def updateAllRecords(league_id):
     playerlist = Player.objects.filter(league = league_id)
