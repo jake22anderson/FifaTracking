@@ -38,79 +38,75 @@
       <div class="row">
         <!-- PLAYERS IN LEAGUE TABLE -->
         <div class="col-4">
+          <div>
+            <button id = "addPlayer" type = "button"> Add Player</button>
+          </div>
           {% if playerlist %}
-          <section>
-            <div class="tbl-header">
+          <div class = "player_table">
+            <div class="player-tbl-content">
               <table cellpadding="0" cellspacing="0" border="0">
-                <thead>
+                <thead class = "playertablehead">
                   <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Record</th>
-                    <th score="col">Points</th>
+                    <th id = "col1">#</th>
+                    <th id = "col2">First</th>
+                    <th id = "col3">Last</th>
+                    <th id = "col4">Record</th>
+                    <th id = "col5">Points</th>
                   </tr>
                   </tr>
                 </thead>
-              </table>
-            </div>
-            <div class="tbl-content">
-              <table cellpadding="0" cellspacing="0" border="0">
-                <tbody>
+                <tbody class = "playertablebody">
                   {%for p in playerlist %}
                   <tr>
-                    <th scope="row">
+                    <th id = "col1">
                       <a = href="player/{{p.id}}">
                         {{forloop.counter}}
                       </a>
                     </th>
-                    <td>{{p.first_name}}</td>
-                    <td>{{p.last_name}}</td>
-                    <td>{{p.record}}</td>
-                    <td>{{p.score}}</td>
+                    <td id = "col2">{{p.first_name}}</td>
+                    <td id = "col3">{{p.last_name}}</td>
+                    <td id = "col4">{{p.record}}</td>
+                    <td id = "col5">{{p.score}}</td>
                   </tr>
                   {% endfor %}
                 </tbody>
               </table>
             </div>
-          </section>
+          </div>
           {% endif %}
-            <button id = "addPlayer" type = "button"> Add Player</button>
 
         </div>
         <!-- MATCH HISTORY -->
-        <div class="col-6">
+        <div class="col-4">
           {% if matchlist %}
-          <section id="match_table">
             <!--for demo wrap-->
-            <div class="tbl-header">
-              <table cellpadding="0" cellspacing="0" border="0">
-                <thead>
-                  <tr>
-                    <th scope="col">Games</th>
-                    <th scope="col" colspan = "2">Home</th>
-                    <th scope="col" colspan = "1"> Away </th>
-                  </tr>
-                  </tr>
-                </thead>
-              </table>
+            <div class = "match_table_div">
+              <div class="match-tbl-header">
+                <table class = "matchtablehead">
+                  <thead>
+                    <tr>
+                      <th id = "col1">Home</th>
+
+                      <th id = "col2">Away</th>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+              <div class="match-tbl-content">
+                <table  class = "matchtablebody" cellpadding="0" cellspacing="0" border="0">
+                  <tbody>
+                    {%for m in matchlist %}
+                    <tr>
+                      <td id = "col1">{{m.player1.first_name}}</td>
+                      <td id = "col2">{{m.p1score}}</td>
+                      <td id = "col3">{{m.p2score}}</td>
+                      <td id = "col4">{{m.player2.first_name}}</td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
             </div>
-            <div class="tbl-content">
-              <table cellpadding="0" cellspacing="0" border="0">
-                <tbody>
-                  {%for m in matchlist %}
-                  <tr>
-                    <th scope="row">{{forloop.counter}}</th>
-                    <td>{{m.player1.first_name}}</td>
-                    <td>{{m.p1score}}</td>
-                    <td>{{m.p2score}}</td>
-                    <td>{{m.player2.first_name}}</td>
-                  </tr>
-                  {% endfor %}
-                </tbody>
-              </table>
-            </div>
-          </section>
           {% endif %}
           <button id = "addMatch" type = "button"> Add Match </button>
         </div>
